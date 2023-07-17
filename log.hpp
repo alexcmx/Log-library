@@ -13,7 +13,8 @@
 enum log_flow{
 	LOG_DEBUG = 1,
 	LOG_INFO = 2,
-	LOG_TEXT = 4
+	LOG_TEXT = 4, 
+	LOG_ERROR = 8,
 };
 using namespace std;
 
