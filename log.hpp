@@ -7,21 +7,28 @@
 #include <cstdarg>
 #include <stdint.h>
 
+#include <map>
+#include <mutex>
 
 enum log_flow{
 	LOG_DEBUG = 1,
 	LOG_INFO = 2,
 	LOG_TEXT = 4
 };
+using namespace std;
 
 class Log:public Singleton<Log>{
 private:
 	bool enabled = true;
 	uint16_t enabled_flow = 0xFFFE;
+	mutex mtx; 
+	void _printf(const char* format, ...);
 public:
 	void init();
 	void printf(log_flow flow_num, const char* format, ...);
 	void disable(log_flow val);
 	void enable(log_flow val);
+	void dump(log_flow flow_num, const char * buff, int size);
+	void dump(log_flow flow_num, const pair<char*,int>&p);
 };
 #endif /* __LOG_H */
