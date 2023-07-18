@@ -15,6 +15,7 @@ enum log_flow{
 	LOG_INFO = 2,
 	LOG_TEXT = 4, 
 	LOG_ERROR = 8,
+	LOG_TEMP = 16,
 };
 using namespace std;
 
