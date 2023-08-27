@@ -11,25 +11,24 @@
 #include <mutex>
 
 enum log_flow{
-	LOG_DEBUG = 1,
-	LOG_INFO = 2,
-	LOG_TEXT = 4, 
-	LOG_ERROR = 8,
-	LOG_TEMP = 16,
+	LOG_DISABLE = 0,
+	LOG_ERROR,
+	LOG_INFO,
+	LOG_TEMP,
+	LOG_DEBUG
 };
 using namespace std;
 
 class Log:public Singleton<Log>{
 private:
-	bool enabled = true;
-	uint16_t enabled_flow = 0xFFFE;
+	log_flow log_level = LOG_TEMP;
 	mutex mtx; 
 	void _printf(const char* format, ...);
 public:
 	void init();
 	void printf(log_flow flow_num, const char* format, ...);
-	void disable(log_flow val);
-	void enable(log_flow val);
+	void set_log_level(log_flow val);
+	bool check(log_flow level);
 	void dump(log_flow flow_num, const char * buff, int size);
 	void dump(log_flow flow_num, const pair<char*,int>&p);
 };
